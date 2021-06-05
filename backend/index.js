@@ -1,4 +1,5 @@
 const express = require('express');
+require("dotenv").config({ path: "/.config.env" }) 
 var cors = require('cors');
 const app = express();
 var bodyParser = require('body-parser');
@@ -8,7 +9,7 @@ app.use(cors())
 const User = require('./models/user')
 
 const mongoose = require('mongoose')
-const url = 'mongodb://127.0.0.1:27017/btb-users'
+const url = 'mongodb://cluster0-shard-00-01.krp9o.mongodb.net:27017/btb-users'
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 var jsonParser = bodyParser.json()
@@ -38,8 +39,8 @@ app.put('/details', jsonParser,  async (req, res) => {
 })
 
 
-
-app.listen(3000, () => console.log('Server ready'));
+const PORT = process.env.PORT;
+app.listen(PORT, () => console.log('Server ready'));
 
 const db = mongoose.connection
 db.once('open', _ => {

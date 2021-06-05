@@ -15,6 +15,6 @@ export const updateDetails = async (data = {}) => {
     body: JSON.stringify(data),
   });
 
-  const dataResponse = response.json();
+  const dataResponse = response;
   return dataResponse;
 };

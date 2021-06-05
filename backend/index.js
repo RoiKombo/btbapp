@@ -9,23 +9,21 @@ app.use(cors())
 const User = require('./models/user')
 
 const mongoose = require('mongoose')
-const url = 'mongodb://cluster0-shard-00-01.krp9o.mongodb.net:27017/btb-users'
+const url = 'mongodb+srv://admin:django123@cluster0.krp9o.mongodb.net/btbappdb?retryWrites=true&w=majority'
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 var jsonParser = bodyParser.json()
 
 app.get('/login', async (req, res) => {
     const {email, password} = req.query;
-    console.log(email,password)
     const userData = await User.findOne({email: email, password: password})
-    console.log('userData',userData)
     if(userData === null) {
         res.statusCode = 401;
         res.send('user or password incorrect');
     } else {
         const token = Date.now()
         userData.token = token;
-        await User.updateOne({id:userData.id}, { $set: {last_login:token, token: token}})
+        await User.updateOne({id:userData.id}, { $set: {last_login:token, token: token}},(err, docs) => console.log(err, docs))
         res.send({userData})
     }
 });
@@ -40,7 +38,7 @@ app.put('/details', jsonParser,  async (req, res) => {
 
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log('Server ready'));
+app.listen(5000, () => console.log('Server ready', 5000));
 
 const db = mongoose.connection
 db.once('open', _ => {

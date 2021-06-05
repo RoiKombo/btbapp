@@ -115,7 +115,6 @@ const RemoveButton = Styled.div`
     position: relative;
     border-radius: 3px;
     background-color: var(--pastelRed);
-    /* width: 30px;; */
     height: 30px;
     font-size: var(--heading-5);
     color: var(--fontGrey);
@@ -243,8 +242,6 @@ const ListDiv = Styled.div`
 const BankDetails = () => {
   const history = useHistory();
   const { accountInfo } = useContext(dataContext);
-  // console.log('bank accountInfo', accountInfo);
-  // console.log('bank type of accountInfo', typeof accountInfo);
   const [bankAccounts, setBankAccounts] = useState([]);
 
   const [accountFields, setAccountFields] = useState({
@@ -267,15 +264,12 @@ const BankDetails = () => {
   };
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if (userInfo) {
-      setBankAccounts(userInfo.userData.bank_account);
-      // console.log('userDetails', bankAccounts);
+    if (accountInfo.bank_account.length > 0) {
+      setBankAccounts(accountInfo.bank_account);
     } else {
       setBankAccounts([]);
     }
   }, []);
-  console.log('bankAccounts', bankAccounts);
   const { company_name, business_number } = accountInfo;
 
   const addAccount = () => {
@@ -285,7 +279,6 @@ const BankDetails = () => {
     bankAccounts.splice(index, 1);
     setBankAccounts(() => [...bankAccounts]);
   };
-  console.log('accountFields', accountFields);
   return (
     <Container>
       <Heading>

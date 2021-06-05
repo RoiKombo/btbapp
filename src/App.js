@@ -35,7 +35,6 @@ const RightColumn = Styled.div`
     @media (max-width: 1000px) {
       grid-row: 1/2;
       display: flex;
-      /* align-items: center; */
       width: 100vw;
     }
 `;

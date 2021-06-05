@@ -117,7 +117,6 @@ export const Details = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo) {
       setUserDetails(userInfo.userData);
-      console.log('userDetails', userDetails);
     } else {
       setUserDetails({});
     }
@@ -126,11 +125,9 @@ export const Details = () => {
   const handleClick = () => {
     updateDetails(userDetails); // send data to db
     setAccountInfo(userDetails); // update global cotext
-    // window.localStorage.setItem('userInfo', JSON.stringify(userDetails)); // update localStorage
+    window.localStorage.setItem('userInfo', JSON.stringify(userDetails)); // update localStorage
     history.push('/bank');
   };
-  console.log(userDetails);
-  console.log('date', moment(userDetails.date_of_birth).format('YYYY-MM-DD'));
   return (
     <div>
       <Heading>

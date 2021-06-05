@@ -54,7 +54,7 @@ const FlexContainer = Styled.div`
     flex-direction: column;
     `;
 const LineInput = Styled.input`
-    direction: rtl;
+    /* direction: rtl; */
     appearance: none;
     border: none;
     padding:12px;
@@ -74,6 +74,7 @@ const LineInput = Styled.input`
       transition: color 0.3s ease;
     }
     `;
+
 const MyButton = Styled.div`
     display: flex;
     width: 155px;
@@ -158,6 +159,7 @@ export const Details = () => {
             />
             <MyLabel htmlFor="business">שם העסק</MyLabel>
             <LineInput
+              style={{ direction: 'ltr' }}
               id="business"
               value={userDetails.company_name}
               onChange={(e) =>

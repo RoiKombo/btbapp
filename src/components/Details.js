@@ -100,32 +100,27 @@ const MyImg = Styled.img`
 
 export const Details = () => {
   const history = useHistory();
-  const { setAccountInfo } = useContext(dataContext);
-
-  const [userDetails, setUserDetails] = useState({
-    first_name: '',
-    last_name: '',
-    id: '',
-    date_of_birth: '',
-    email: '',
-    phone: '',
-    company_name: '',
-    business_number: '',
-  });
+  const { accountInfo, setAccountInfo } = useContext(dataContext);
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if (userInfo) {
-      setUserDetails(userInfo.userData);
+    if (accountInfo.userData) {
+      setUserDetails(accountInfo.userData);
     } else {
-      setUserDetails({});
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (userInfo) {
+        setUserDetails(userInfo.userData);
+      } else {
+        setUserDetails({});
+      }
     }
   }, []);
 
+  console.log('userDetails', userDetails);
   const handleClick = () => {
     updateDetails(userDetails); // send data to db
     setAccountInfo(userDetails); // update global cotext
-    window.localStorage.setItem('userInfo', JSON.stringify(userDetails)); // update localStorage
+    // window.localStorage.setItem('userInfo', JSON.stringify(userDetails)); // update localStorage
     history.push('/bank');
   };
   return (
